@@ -5,7 +5,7 @@ import 'package:eloro_shop_uae/core/helpers/cache_helper.dart';
 import 'package:eloro_shop_uae/core/helpers/dio_helper.dart';
 import 'package:eloro_shop_uae/core/themes/app_colors.dart';
 import 'package:eloro_shop_uae/view/home/bloc/home_bloc/home_bloc.dart';
-import 'package:eloro_shop_uae/view/home/home.dart';
+import 'package:eloro_shop_uae/view/home/home3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
