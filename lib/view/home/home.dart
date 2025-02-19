@@ -302,6 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Row(
                                     children:
                                         optionsGroupName.options.map((option) {
+                                      // just refresh
                                       // Check if the option is available
                                       // final isEnabled = state
                                       //     .filteredAvailableOptions
@@ -311,11 +312,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                       //                 .optionGroupId &&
                                       //         pg.optionId == option.optionId);
 
-                                      final isEnabled = state.filteredAvailableOptions.isEmpty ||
-    state.filteredAvailableOptions.any((pg) =>
-        pg.optionGroupId == optionsGroupName.optionGroupId &&
-        pg.optionId == option.optionId);
-
+                                      final isEnabled = state
+                                              .filteredAvailableOptions
+                                              .isEmpty ||
+                                          state.filteredAvailableOptions.any(
+                                              (pg) =>
+                                                  pg.optionGroupId ==
+                                                      optionsGroupName
+                                                          .optionGroupId &&
+                                                  pg.optionId ==
+                                                      option.optionId);
 
                                       return Container(
                                         clipBehavior: Clip.hardEdge,
