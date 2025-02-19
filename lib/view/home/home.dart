@@ -1,6 +1,7 @@
 import 'package:eloro_shop_uae/core/constants/app_constants.dart';
 import 'package:eloro_shop_uae/core/func/hash_color_converter.dart';
 import 'package:eloro_shop_uae/view/home/bloc/home_bloc/home_bloc.dart';
+import 'package:eloro_shop_uae/view/shared/screens/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:eloro_shop_uae/core/themes/app_colors.dart';
@@ -38,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             if (state is HomeLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: CustomLoadingScreen());
             } else if (state is HomeLoaded) {
               final optionsGroupName = state.optionGroups.firstWhere(
                 (group) => group.isColor == true,

@@ -14,14 +14,14 @@ class _CustomLoadingScreenState extends State<CustomLoadingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: LoadingAnimationWidget.discreteCircle(
+      child: LoadingAnimationWidget.stretchedDots(
         // leftDotColor: const Color(0xFF1A1A3F),
         // rightDotColor: const Color(0xFFEA3799),
 
         // color: AppColors.mainColor,
         color: AppColors.mainColor,
-        secondRingColor: AppColors.greyColor,
-        thirdRingColor: AppColors.mainColor,
+        // secondRingColor: AppColors.greyColor,
+        // thirdRingColor: AppColors.mainColor,
 
         size: 100,
       ),

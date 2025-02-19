@@ -10,50 +10,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// String? globalCachedUserToken = "";
-// String? globalCachedTEMPUserToken =
-// = "842|kfJ1xYx8xejTn9Oz9YNWRZUsx46l13v09X60PKhk29dc2055";
-// String? globalCachedUserLang;
-// String? globalCachedArabicUserName;
-// String? globalCachedEnglishUserName;
-// String? globalCachedUserImage = "";
-// String? globalCachedNationaltyID;
-// String? globalCachedNationaltyAr;
-// String? globalCachedNationaltyEn;
-// String? globalCachedUserBirthdate;
-// int? globalCachedUserGender;
-
-// String? globalCachedUserID;
-// String? globalCachedUserPhoneNum;
-// String? globalCachedUserEmail;
-// String? globalCachedUserImageUserDoesntExiset =
-//     "https://thispersondoesnotexist.com/";
-//  const String globalDefaltCachedNetworkImage = "https://www.istockphoto.com/illustrations/green-shopping-cart-icon";
-// const String globalDefaltCachedNetworkImage =
-//     "https://cdn4.iconfinder.com/data/icons/social-media-2070/140/_shopify-512.png";
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //  HttpOverrides.global = MyHttpOverrides();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: AppColors.mainColor,
-
     statusBarIconBrightness: Brightness.dark, // Set icons to black
     statusBarBrightness: Brightness.light, // Adjust for iOS
   )); // Set the status bar color
   final ThemeRepository themeRepository = ThemeRepository();
-
   await CacheHelper.init();
   await DioHelper.init();
   // await Hive.initFlutter();
   runApp(MyApp(themeRepository: themeRepository));
 }
-
 class MyApp extends StatelessWidget {
   final ThemeRepository themeRepository;
   const MyApp({super.key, required this.themeRepository});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
