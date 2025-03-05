@@ -15,94 +15,106 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Color theMainColor = Colors.white;
+  List<OptionGroupsLi> allOptionsGroupList = [];
+  List<Option> mainOptionsGroupList = [];
+  List<Possibility> allThePossibilitiesList = [];
+  List<Possibility> filteredPossibilities = [];
   HomeBloc() : super(HomeInitial()) {
     on<FetchOptions>(_onFetchOptions);
-    on<SelectOption>(_onSelectionEditing);
+    // on<SelectOption>(_onSelectionEditing);
   }
-
 
   Future<void> _onFetchOptions(
-    FetchOptions event, Emitter<HomeState> emit) async {
-  emit(HomeLoading());
-  try {
-    final response = await DioHelper.fetchOptions();
-    if (response.statusCode == HttpStatus.ok) {
-      final data = response.data;
-      final optionGroups = OptionGroupModel.fromJson(data);
-      final availableOptions =
-          AvailableOptionLis.fromJson(data['data']['availableOptionLis']);
-print("Fetched Available Options: ${availableOptions.possibilities}");
+      FetchOptions event, Emitter<HomeState> emit) async {
+    emit(HomeLoading());
+    try {
+      final response = await DioHelper.fetchOptions();
+      if (response.statusCode == HttpStatus.ok) {
+        final data = response.data;
+        final optionGroupsModel = OptionGroupModel.fromJson(data);
+        // final availableOptions =
+        //     AvailableOptionLis.fromJson(data['data']['availableOptionLis']);
+        allThePossibilitiesList = optionGroupsModel.data.availableOptionLis.possibilities  ;
+        // print("Fetched Available Options: ${allThePossibilitiesList}");
 
-      // Extract all possibilities
-      List<PossibilityGroup> allPossibilities = availableOptions.possibilities!
-          .expand((possibility) => possibility.possibilityGroups!)
-          .toList();
+        // Extract all possibilities
+        // List<PossibilityGroup> allPossibilities = availableOptions
+        //     .possibilities!
+        //     .expand((possibility) => possibility.possibilityGroups!)
+        //     .toList();
 
-      emit(HomeLoaded(
-        optionGroups: optionGroups.data!.optionGroupsLis,
-        availableOptions: [availableOptions],
-        selectedOptions: {},
-        filteredAvailableOptions: allPossibilities, // Initialize filtered options
-        theMainColor: theMainColor,
-      ));
-    } else {
-      emit(HomeError("Failed to fetch data: ${response.statusMessage}"));
-    }
-  } catch (e) {
-    emit(HomeError("An error occurred: $e"));
-  }
-}
+        // emit(HomeLoaded(
+        //   optionGroups: optionGroupsModel.data!.optionGroupsLis,
+        //   availableOptions: [availableOptions],
+        //   selectedOptions: {},
+        //   filteredAvailableOptions:
+        //       allPossibilities, // Initialize filtered options
+        //   theMainColor: theMainColor,
+        // ));
 
-
-
-  void _onSelectionEditing(SelectOption event, Emitter<HomeState> emit) {
-    print("tttttttjtjtjtjtjtjtjt");
-    if (state is HomeLoaded) {
-      final currentState = state as HomeLoaded;
-      final newSelectedOptions =
-          Map<int, int>.from(currentState.selectedOptions);
-      newSelectedOptions[event.groupId] = event.optionId;
-
-      // Update the main color if a color is selected
-      if (event.colorHash != null) {
-        theMainColor = hexToColor(event.colorHash!);
+        emit(HomeLoaded( allOptionsGroupList: allOptionsGroupList,
+        mainOptionsGroupList: mainOptionsGroupList,
+            allThePossibilitiesList: allThePossibilitiesList,
+            filteredPossibilities: allThePossibilitiesList,
+            // theMainColor: theMainColor,
+            ));
+      } else {
+        emit(HomeError("Failed to fetch data: ${response.statusMessage}"));
       }
-
-      // Filter available options based on the selected color
-      // List<PossibilityGroup> filteredAvailableOptions = [];
-      List<PossibilityGroup> filteredAvailableOptions = currentState.availableOptions
-    .expand((available) => available.possibilities!)
-    .expand((possibility) => possibility.possibilityGroups!)
-    .toList();
-
-      final isColorSelected = currentState.optionGroups
-          .firstWhere((group) => group.optionGroupId == event.groupId)
-          .isColor;
-
-      if (isColorSelected) {
-        filteredAvailableOptions = currentState.availableOptions
-            .expand((available) => available.possibilities!)
-            .where((possibility) => possibility.possibilityGroups!.any((pg) =>
-                pg.optionGroupId == event.groupId &&
-                pg.optionId == event.optionId))
-            .expand((possibility) => possibility.possibilityGroups!)
-            .where((pg) => pg.optionGroupId != event.groupId)
-            .toList();
-
-        // Reset the selected size when changing color
-        final sizeGroup = currentState.optionGroups.firstWhere(
-            (g) => !g.isColor,
-            orElse: () => currentState.optionGroups.last);
-        newSelectedOptions.remove(sizeGroup.optionGroupId);
-      }
-
-      emit(HomeLoaded(
-        optionGroups: currentState.optionGroups,
-        availableOptions: currentState.availableOptions,
-        selectedOptions: newSelectedOptions,
-        filteredAvailableOptions: filteredAvailableOptions,
-        theMainColor: theMainColor,
-      ));
+    } catch (e) {
+      emit(HomeError("An error occurred: $e"));
     }
   }
+
+  // void _onSelectionEditing(SelectOption event, Emitter<HomeState> emit) {
+  //   print("tttttttjtjtjtjtjtjtjt");
+  //   if (state is HomeLoaded) {
+  //     final currentState = state as HomeLoaded;
+  //     final newSelectedOptions =
+  //         Map<int, int>.from(currentState.selectedOptions);
+  //     newSelectedOptions[event.groupId] = event.optionId;
+
+  //     // Update the main color if a color is selected
+  //     if (event.colorHash != null) {
+  //       theMainColor = hexToColor(event.colorHash!);
+  //     }
+
+  //     // Filter available options based on the selected color
+  //     // List<PossibilityGroup> filteredAvailableOptions = [];
+  //     List<PossibilityGroup> filteredAvailableOptions = currentState
+  //         .availableOptions
+  //         .expand((available) => available.possibilities!)
+  //         .expand((possibility) => possibility.possibilityGroups!)
+  //         .toList();
+
+  //     final isColorSelected = currentState.optionGroups
+  //         .firstWhere((group) => group.optionGroupId == event.groupId)
+  //         .isColor;
+
+  //     if (isColorSelected) {
+  //       filteredAvailableOptions = currentState.availableOptions
+  //           .expand((available) => available.possibilities!)
+  //           .where((possibility) => possibility.possibilityGroups!.any((pg) =>
+  //               pg.optionGroupId == event.groupId &&
+  //               pg.optionId == event.optionId))
+  //           .expand((possibility) => possibility.possibilityGroups!)
+  //           .where((pg) => pg.optionGroupId != event.groupId)
+  //           .toList();
+
+  //       // Reset the selected size when changing color
+  //       final sizeGroup = currentState.optionGroups.firstWhere(
+  //           (g) => !g.isColor,
+  //           orElse: () => currentState.optionGroups.last);
+  //       newSelectedOptions.remove(sizeGroup.optionGroupId);
+  //     }
+
+  //     emit(HomeLoaded(
+  //       optionGroups: currentState.optionGroups,
+  //       availableOptions: currentState.availableOptions,
+  //       selectedOptions: newSelectedOptions,
+  //       filteredAvailableOptions: filteredAvailableOptions,
+  //       theMainColor: theMainColor,
+  //     ));
+  //   }
+  // }
 }

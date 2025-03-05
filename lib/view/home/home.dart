@@ -43,13 +43,250 @@ class _HomeScreenState extends State<HomeScreen> {
             } else if (state is HomeError) {
               return Center(child: Text(state.message));
             } else if (state is HomeLoaded) {
-             
-
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: SingleChildScrollView(
-                 
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "The Active Option",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.darkBgColor,
+                        ),
+                      ),
 
+                      AppConstants.emptySpaceFifteenPixl,
+
+                      const _ProductImageContainer(),
+
+                      AppConstants.emptySpaceFifteenPixl,
+
+                      ///
+                      ///
+                      ///
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:
+                            state.mainOptionsGroupList.map((optionsGroupName) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                // optionsGroupName.optionGroupNameEn ??
+                                    "Property",
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.darkBgColor,
+                                ),
+                              ),
+                              // SingleChildScrollView(
+                              //   // #### main option list #### //
+                              //   padding: const EdgeInsets.symmetric(
+                              //     horizontal:
+                              //         AppConstants.theDefBaddingFifteenPixl,
+                              //     vertical:
+                              //         AppConstants.theDefBaddingFifteenPixl,
+                              //   ),
+                              //   scrollDirection: Axis.horizontal,
+                              //   physics: const BouncingScrollPhysics(),
+                              //   // child: Row(
+                              //   //   children:
+                              //   //       optionsGroupName.options.map((option) {
+                              //   //     // just refresh
+                              //   //     // Check if the option is available
+                              //   //     // final isEnabled = state
+                              //   //     //     .filteredAvailableOptions
+                              //   //     //     .any((pg) =>
+                              //   //     //         pg.optionGroupId ==
+                              //   //     //             optionsGroupName
+                              //   //     //                 .optionGroupId &&
+                              //   //     //         pg.optionId == option.optionId);
+
+                              //   //     // final isEnabled = state
+                              //   //     //         .allThePossibilitiesList
+                              //   //     //         .isEmpty ||
+                              //   //     //     state.allThePossibilitiesList.any(
+                              //   //     //         (posibletyGroup) =>
+                              //   //     //             posibletyGroup.optionGroupId ==
+                              //   //     //                 optionsGroupName
+                              //   //     //                     .optionGroupId &&
+                              //   //     //             posibletyGroup.optionId ==
+                              //   //     //                 option.optionId);
+
+                              //   //     return Container(
+                              //   //       clipBehavior: Clip.hardEdge,
+                              //   //       margin: const EdgeInsets.symmetric(
+                              //   //           horizontal: 8),
+                              //   //       alignment: Alignment.center,
+                              //   //       height: 100,
+                              //   //       width: 100,
+                              //   //       decoration: BoxDecoration(
+                              //   //         borderRadius: AppConstants
+                              //   //             .theNewBorderRadiusTenPX,
+                              //   //         color: option.colorHash == null ||
+                              //   //                 option.colorHash.isEmpty
+                              //   //             ? Colors.white
+                              //   //             : hexToColor(option.colorHash),
+                              //   //       ),
+                              //   //       child: SizedBox.expand(
+                              //   //         child: InkWell(
+                              //   //           radius: 10,
+                              //   //           onTap: isEnabled
+                              //   //               ? () {
+                              //   //                   context
+                              //   //                       .read<HomeBloc>()
+                              //   //                       .add(SelectOption(
+                              //   //                         groupId:
+                              //   //                             optionsGroupName
+                              //   //                                 .optionGroupId!,
+                              //   //                         optionId:
+                              //   //                             option.optionId!,
+                              //   //                         colorHash:
+                              //   //                             option.colorHash,
+                              //   //                       ));
+                              //   //                 }
+                              //   //               : null, // Disable tap if not enabled
+                              //   //           child: Column(
+                              //   //             mainAxisAlignment:
+                              //   //                 MainAxisAlignment.center,
+                              //   //             children: [
+                              //   //               Radio<int>(
+                              //   //                 value: option.optionId!,
+                              //   //                 groupValue:
+                              //   //                     state.selectedOptions[
+                              //   //                         optionsGroupName
+                              //   //                             .optionGroupId],
+                              //   //                 onChanged: isEnabled
+                              //   //                     ? (value) {
+                              //   //                         context
+                              //   //                             .read<HomeBloc>()
+                              //   //                             .add(SelectOption(
+                              //   //                               groupId:
+                              //   //                                   optionsGroupName
+                              //   //                                       .optionGroupId!,
+                              //   //                               optionId: option
+                              //   //                                   .optionId!,
+                              //   //                               colorHash: option
+                              //   //                                   .colorHash,
+                              //   //                             ));
+                              //   //                       }
+                              //   //                     : null, // Disable radio if not enabled
+                              //   //                 activeColor:
+                              //   //                     AppColors.mainColor,
+                              //   //               ),
+                              //   //               Text(option.nameEn ?? "Option"),
+                              //   //             ],
+                              //   //           ),
+                              //   //         ),
+                              //   //       ),
+                              //   //     );
+                              //   //   }).toList(),
+                              //   // ),
+                              // ),
+
+                              ListView.builder(
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    // main option container
+
+                                    clipBehavior: Clip.hardEdge,
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 8),
+                                    alignment: Alignment.center,
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          AppConstants.theNewBorderRadiusTenPX,
+                                      color: state.mainOptionsGroupList[index]
+                                                      .colorHash ==
+                                                  null ||
+                                              state.mainOptionsGroupList[index]
+                                                      .colorHash ==
+                                                  ""
+                                          ? Colors.white
+                                          : hexToColor(state
+                                              .mainOptionsGroupList[index]
+                                              .colorHash),
+                                    ),
+                                    child: SizedBox.expand(
+                                      child: InkWell(
+                                        radius: 10,
+                                        onTap:
+                                            // isEnabled ?
+                                            () {
+                                          // context
+                                          //     .read<HomeBloc>()
+                                          //     .add(SelectOption(
+                                          //       groupId:
+                                          //           optionsGroupName
+                                          //               .optionGroupId!,
+                                          //       optionId:
+                                          //           option.optionId!,
+                                          //       colorHash:
+                                          //           option.colorHash,
+                                          //     ));
+
+                                          print("maaaaain option"); 
+                                        }
+                                        // : null
+                                        , // Disable tap if not enabled
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Radio<int>(
+                                              value: state.mainOptionsGroupList[index].optionId,
+                                              groupValue: state.mainOptionsGroupList[
+                                                  index]
+                                                      .optionId,
+                                              onChanged: 
+                                              // isEnabled
+                                              //     ? (value) {
+                                              //         context
+                                              //             .read<HomeBloc>()
+                                              //             .add(SelectOption(
+                                              //               groupId:
+                                              //                   optionsGroupName
+                                              //                       .optionGroupId!,
+                                              //               optionId: option
+                                              //                   .optionId!,
+                                              //               colorHash: option
+                                              //                   .colorHash,
+                                              //             ));
+                                              //       }
+                                              //     : null,
+                                              
+
+                                              null, 
+                                              activeColor: AppColors.mainColor,
+                                            ),
+                                            Text(state.mainOptionsGroupList[index].nameEn ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                              const SizedBox(height: 16.0),
+                            ],
+                          );
+                        }).toList(),
+                      ),
+
+                      ///
+                      ///
+                      ///
+                      ///
+                    ],
+                  ),
                 ),
               );
             }
@@ -72,7 +309,7 @@ class _ProductImageContainer extends StatelessWidget {
       builder: (context, state) {
         Color containerColor = Colors.white;
         if (state is HomeLoaded) {
-          containerColor = state.theMainColor ?? Colors.white;
+          // containerColor = state.theMainColor ?? Colors.white;
         }
 
         return Container(
@@ -92,7 +329,7 @@ class _ProductImageContainer extends StatelessWidget {
                   height: double.infinity,
                   width: double.infinity,
                   decoration: const BoxDecoration(
-                      borderRadius: const BorderRadius.only(
+                      borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                   )),
                   child: const SizedBox(

@@ -3,18 +3,25 @@ abstract class HomeState {}
 class HomeInitial extends HomeState {}
 class HomeLoading extends HomeState {}
 class HomeLoaded extends HomeState {
-  final List<OptionGroupsLi> optionGroups;
-  final List<AvailableOptionLis> availableOptions;
-  final Map<int, int> selectedOptions;
-  final List<PossibilityGroup> filteredAvailableOptions;
-  final Color? theMainColor;
+  // final List<OptionGroupsLi> optionGroups;
+  // final List<AvailableOptionLis> availableOptions;
+  // final Map<int, int> selectedOptions;
+  // final List<PossibilityGroup> filteredAvailableOptions;
+  // final Color? theMainColor;
+
+
+  // Color? theMainColor = Colors.white;
+  List<OptionGroupsLi> allOptionsGroupList = [];
+  List<Option> mainOptionsGroupList = [];
+  List<Possibility> allThePossibilitiesList = [];
+  List<Possibility> filteredPossibilities = [];
 
   HomeLoaded({
-    required this.optionGroups,
-    required this.availableOptions,
-    required this.selectedOptions,
-    this.filteredAvailableOptions = const [],
-    required this.theMainColor,
+    required this.allOptionsGroupList,
+    required this.mainOptionsGroupList,
+    required this.allThePossibilitiesList,
+    required this.filteredPossibilities,
+    // required this.theMainColor,
   });
 }
 
