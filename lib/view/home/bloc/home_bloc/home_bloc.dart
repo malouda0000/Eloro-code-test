@@ -17,10 +17,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Color theMainColor = Colors.white;
   List<OptionGroupsLi> allOptionsGroupList = [];
   OptionGroupsLi? mainOptionsGroupList;
+  num mainOptionsGroupValue = 0;
   List<Possibility> allThePossibilitiesList = [];
   List<Possibility> filteredPossibilities = [];
   HomeBloc() : super(HomeInitial()) {
     on<FetchOptions>(_onFetchOptions);
+    on<MainOptionSelected>(_onMainOptionSelected);
     // on<SelectOption>(_onSelectionEditing);
   }
 
@@ -64,6 +66,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(HomeLoaded(
           allOptionsGroupList: allOptionsGroupList,
           mainOptionsGroupList: mainOptionsGroupList!,
+          mainOptionsGroupValue: mainOptionsGroupValue,
           allThePossibilitiesList: allThePossibilitiesList,
           filteredPossibilities: allThePossibilitiesList,
           // theMainColor: theMainColor,
@@ -75,6 +78,63 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(HomeError("An error occurred: $e"));
     }
   }
+
+
+
+   _onMainOptionSelected(MainOptionSelected event, Emitter<HomeState> emit) {
+    // print("tttttttjtjtjtjtjtjtjt");
+    if (state is HomeLoaded) {
+      final currentState = state as HomeLoaded;
+      // final newSelectedOptions =
+      //     Map<int, int>.from(currentState.selectedOptions);
+      // newSelectedOptions[event.groupId] = event.optionId;
+
+      // // Update the main color if a color is selected
+      // if (event.colorHash != null) {
+      //   theMainColor = hexToColor(event.colorHash!);
+      // }
+
+      // // Filter available options based on the selected color
+      // // List<PossibilityGroup> filteredAvailableOptions = [];
+      // List<PossibilityGroup> filteredAvailableOptions = currentState
+      //     .availableOptions
+      //     .expand((available) => available.possibilities!)
+      //     .expand((possibility) => possibility.possibilityGroups!)
+      //     .toList();
+
+      // final isColorSelected = currentState.optionGroups
+      //     .firstWhere((group) => group.optionGroupId == event.groupId)
+      //     .isColor;
+
+      // if (isColorSelected) {
+      //   filteredAvailableOptions = currentState.availableOptions
+      //       .expand((available) => available.possibilities!)
+      //       .where((possibility) => possibility.possibilityGroups!.any((pg) =>
+      //           pg.optionGroupId == event.groupId &&
+      //           pg.optionId == event.optionId))
+      //       .expand((possibility) => possibility.possibilityGroups!)
+      //       .where((pg) => pg.optionGroupId != event.groupId)
+      //       .toList();
+
+      //   // Reset the selected size when changing color
+      //   final sizeGroup = currentState.optionGroups.firstWhere(
+      //       (g) => !g.isColor,
+      //       orElse: () => currentState.optionGroups.last);
+      //   newSelectedOptions.remove(sizeGroup.optionGroupId);
+      // }
+
+      // emit(HomeLoaded(
+      //   optionGroups: currentState.optionGroups,
+      //   availableOptions: currentState.availableOptions,
+      //   selectedOptions: newSelectedOptions,
+      //   filteredAvailableOptions: filteredAvailableOptions,
+      //   theMainColor: theMainColor,
+      // ));
+    }
+  }
+
+
+
 
   // void _onSelectionEditing(SelectOption event, Emitter<HomeState> emit) {
   //   print("tttttttjtjtjtjtjtjtjt");

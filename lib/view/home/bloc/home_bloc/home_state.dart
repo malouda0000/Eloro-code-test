@@ -13,12 +13,14 @@ class HomeLoaded extends HomeState {
   // Color? theMainColor = Colors.white;
   List<OptionGroupsLi> allOptionsGroupList = [];
   OptionGroupsLi mainOptionsGroupList ;
+  num? mainOptionsGroupValue ;
   List<Possibility> allThePossibilitiesList = [];
   List<Possibility> filteredPossibilities = [];
 
   HomeLoaded({
     required this.allOptionsGroupList,
     required this.mainOptionsGroupList,
+    required this.mainOptionsGroupValue,
     required this.allThePossibilitiesList,
     required this.filteredPossibilities,
     // required this.theMainColor,

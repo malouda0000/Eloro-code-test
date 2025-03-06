@@ -133,26 +133,38 @@ class _HomeScreenState extends State<HomeScreen> {
                                             }
                                             // : null
                                             , // Disable tap if not enabled
-                                            // child: Column(
-                                            //   mainAxisAlignment:
-                                            //       MainAxisAlignment.center,
-                                            //   children: [
-                                            //     Radio<int>(
-                                            //       value: state
-                                            //           .mainOptionsGroupList[index]
-                                            //           .optionId,
-                                            //       groupValue: state
-                                            //           .mainOptionsGroupList[index]
-                                            //           .optionId,
-                                            //       onChanged: null,
-                                            //       activeColor:
-                                            //           AppColors.mainColor,
-                                            //     ),
-                                            //     Text(state
-                                            //         .mainOptionsGroupList[index]
-                                            //         .nameEn),
-                                            //   ],
-                                            // ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Radio<num>(
+                                                  value: state
+                                                      .mainOptionsGroupList.options[index].optionId,
+                                                  // groupValue: state
+                                                  //     .mainOptionsGroupList.options[index]
+                                                  //     .optionId,
+                                                  groupValue: state.mainOptionsGroupValue,
+                                                  onChanged: 
+                                                  (optionIndexInMainOptionList)
+                                                  
+                                                  {
+                                                  //   context.read<HomeBloc>().add(
+                                                  //   MainOptionSelected(
+                                                  //     mainOptionId: state
+                                                  //         .mainOptionsGroupList.options[index!.toInt()].optionId.toInt(),
+                                                  //   )
+                                                  // );
+                                                  print("main option${optionIndexInMainOptionList}");
+                                                  }
+                                                  ,
+                                                  activeColor:
+                                                      AppColors.mainColor,
+                                                ),
+                                                Text(state
+                                                    .mainOptionsGroupList.options[index]
+                                                    .nameEn),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       );
