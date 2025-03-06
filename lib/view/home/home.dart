@@ -163,6 +163,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         .toInt()]
                                                                 .optionId
                                                                 .toInt(),
+                                                                // mainSelectedOptionnnnGroupId:  state.mainOptionsGroupList.options[theOptionIndex.toInt()].optionId.toInt(),
+                                                                // mainSelectedOptionnnnGroupId: state.mainOptionsGroupList.optionGroupId
                                                           ));
                                                     });
 
@@ -188,6 +190,140 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             )
                           ]),
+
+                      ///
+                      ///
+                      ///
+                      ///
+
+                      AppConstants.emptySpaceFifteenPixl,
+                      AppConstants.emptySpaceFifteenPixl,
+
+                      ///
+                      ///
+                      ///
+                      state.colorsOptionsGroupList == null
+                          ? SizedBox()
+                          : (state.colorsOptionsGroupList!.options.isEmpty
+                              ? SizedBox()
+                              : Column(
+                                  // color row
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                      Text(
+                                        // optionsGroupName.optionGroupNameEn ??
+                                        "Colors",
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.darkBgColor,
+                                        ),
+                                      ),
+                                      AppConstants.emptySpaceFifteenPixl,
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            height: 100,
+                                            width: double.infinity,
+                                            child: ListView.builder(
+                                              itemCount: state
+                                                  .colorsOptionsGroupList!
+                                                  .options
+                                                  .length,
+                                              scrollDirection: Axis.horizontal,
+                                              itemBuilder: (context,
+                                                  theColorOptionIndex) {
+                                                return Container(
+                                                  // color options container
+                                                  clipBehavior: Clip.hardEdge,
+                                                  margin: const EdgeInsets
+                                                      .symmetric(horizontal: 8),
+                                                  alignment: Alignment.center,
+                                                  height: 100,
+                                                  width: 100,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: AppConstants
+                                                        .theNewBorderRadiusTenPX,
+                                                    // color: hexToColor(state
+                                                    //     .mainOptionsGroupList
+                                                    //     .options[
+                                                    //         theColorOptionIndex]
+                                                    //     .colorHash),
+                                                    color: Colors.white,
+                                                  ),
+                                                  child: SizedBox.expand(
+                                                    child: InkWell(
+                                                      radius: 10,
+                                                      onTap: () {
+                                                        print(
+                                                            "colorrrr option");
+                                                      }
+                                                      // : null
+                                                      , // Disable tap if not enabled
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Radio<num>(
+                                                            value: state
+                                                                .colorsOptionsGroupList!
+                                                                .options[
+                                                                    theColorOptionIndex]
+                                                                .optionId,
+                                                            // groupValue: state
+                                                            //     .mainOptionsGroupList.options[index]
+                                                            //     .optionId,
+                                                            groupValue: state
+                                                                .colorsOptionsGroupValue,
+                                                            onChanged:
+                                                                (optionIndexInColorsOptionList) {
+                                                              setState(() {
+                                                                context
+                                                                    .read<HomeBloc>()
+                                                                    .add(
+                                                                        ColorOptionSelected(
+                                                                      colorOptionId: state
+                                                                          .colorsOptionsGroupList!
+                                                                          .options[
+                                                                              theColorOptionIndex
+                                                                                  .toInt()]
+                                                                          .optionId
+                                                                          .toInt(),
+                                                                    ), 
+                                                                    
+                                                                    );
+                                                              });
+
+                                                              print(
+                                                                  "main option${state.mainOptionsGroupList.options[theColorOptionIndex].optionId.toInt()}");
+                                                            },
+                                                            // onChanged: null,
+                                                            activeColor:
+                                                                AppColors
+                                                                    .mainColor,
+                                                          ),
+                                                          Text(state
+                                                              .colorsOptionsGroupList!
+                                                              .options[
+                                                                  theColorOptionIndex]
+                                                              .nameEn),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          const SizedBox(height: 16.0),
+                                        ],
+                                      )
+                                    ])),
 
                       ///
                       ///
