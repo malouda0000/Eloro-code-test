@@ -12,7 +12,7 @@ class HomeLoaded extends HomeState {
 
   // Color? theMainColor = Colors.white;
   List<OptionGroupsLi> allOptionsGroupList = [];
-  List<Option> mainOptionsGroupList = [];
+  OptionGroupsLi mainOptionsGroupList ;
   List<Possibility> allThePossibilitiesList = [];
   List<Possibility> filteredPossibilities = [];
 

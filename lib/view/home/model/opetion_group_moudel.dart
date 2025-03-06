@@ -89,8 +89,8 @@ class AvailableOptionLis {
 
 class Possibility {
     List<PossibilityGroup> possibilityGroups;
-    int quantity;
-    double increasingPrice;
+    num quantity;
+    num increasingPrice;
 
     Possibility({
         required this.possibilityGroups,
@@ -100,8 +100,8 @@ class Possibility {
 
     Possibility copyWith({
         List<PossibilityGroup>? possibilityGroups,
-        int? quantity,
-        double? increasingPrice,
+        num? quantity,
+        num? increasingPrice,
     }) => 
         Possibility(
             possibilityGroups: possibilityGroups ?? this.possibilityGroups,
@@ -127,8 +127,8 @@ class Possibility {
 }
 
 class PossibilityGroup {
-    int optionGroupId;
-    int optionId;
+    num optionGroupId;
+    num optionId;
 
     PossibilityGroup({
         required this.optionGroupId,
@@ -136,8 +136,8 @@ class PossibilityGroup {
     });
 
     PossibilityGroup copyWith({
-        int? optionGroupId,
-        int? optionId,
+        num? optionGroupId,
+        num? optionId,
     }) => 
         PossibilityGroup(
             optionGroupId: optionGroupId ?? this.optionGroupId,
@@ -160,7 +160,7 @@ class PossibilityGroup {
 }
 
 class OptionGroupsLi {
-    int optionGroupId;
+    num optionGroupId;
     bool isColor;
     String optionGroupName;
     String optionGroupNameEn;
@@ -177,7 +177,7 @@ class OptionGroupsLi {
     });
 
     OptionGroupsLi copyWith({
-        int? optionGroupId,
+        num? optionGroupId,
         bool? isColor,
         String? optionGroupName,
         String? optionGroupNameEn,
@@ -217,7 +217,7 @@ class OptionGroupsLi {
 }
 
 class Option {
-    int optionId;
+    num optionId;
     String name;
     String nameEn;
     String colorHash;
@@ -230,7 +230,7 @@ class Option {
     });
 
     Option copyWith({
-        int? optionId,
+        num? optionId,
         String? name,
         String? nameEn,
         String? colorHash,

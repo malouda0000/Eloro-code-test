@@ -16,7 +16,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Color theMainColor = Colors.white;
   List<OptionGroupsLi> allOptionsGroupList = [];
-  List<Option> mainOptionsGroupList = [];
+  OptionGroupsLi? mainOptionsGroupList;
   List<Possibility> allThePossibilitiesList = [];
   List<Possibility> filteredPossibilities = [];
   HomeBloc() : super(HomeInitial()) {
@@ -34,7 +34,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         final optionGroupsModel = OptionGroupModel.fromJson(data);
         // final availableOptions =
         //     AvailableOptionLis.fromJson(data['data']['availableOptionLis']);
-        allThePossibilitiesList = optionGroupsModel.data.availableOptionLis.possibilities  ;
+        allThePossibilitiesList =
+            optionGroupsModel.data.availableOptionLis.possibilities;
+
+        // update the mainoptionsGroupList
+        for (var item in optionGroupsModel.data.optionGroupsLis) {
+          if (item.isMain == true) {
+            mainOptionsGroupList = item;
+          }
+        }
+
         // print("Fetched Available Options: ${allThePossibilitiesList}");
 
         // Extract all possibilities
@@ -52,12 +61,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         //   theMainColor: theMainColor,
         // ));
 
-        emit(HomeLoaded( allOptionsGroupList: allOptionsGroupList,
-        mainOptionsGroupList: mainOptionsGroupList,
-            allThePossibilitiesList: allThePossibilitiesList,
-            filteredPossibilities: allThePossibilitiesList,
-            // theMainColor: theMainColor,
-            ));
+        emit(HomeLoaded(
+          allOptionsGroupList: allOptionsGroupList,
+          mainOptionsGroupList: mainOptionsGroupList!,
+          allThePossibilitiesList: allThePossibilitiesList,
+          filteredPossibilities: allThePossibilitiesList,
+          // theMainColor: theMainColor,
+        ));
       } else {
         emit(HomeError("Failed to fetch data: ${response.statusMessage}"));
       }
