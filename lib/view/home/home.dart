@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     itemCount: state
                                         .mainOptionsGroupList.options.length,
                                     scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
+                                    itemBuilder: (context, theOptionIndex) {
                                       return Container(
                                         // main option container
 
@@ -110,18 +110,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                               .theNewBorderRadiusTenPX,
                                           color: state
                                                           .mainOptionsGroupList
-                                                          .options[index]
+                                                          .options[
+                                                              theOptionIndex]
                                                           .colorHash ==
                                                       null ||
                                                   state
                                                           .mainOptionsGroupList
-                                                          .options[index]
+                                                          .options[
+                                                              theOptionIndex]
                                                           .colorHash ==
                                                       ""
                                               ? Colors.white
                                               : hexToColor(state
                                                   .mainOptionsGroupList
-                                                  .options[index]
+                                                  .options[theOptionIndex]
                                                   .colorHash),
                                           // color: Colors.yellow,
                                         ),
@@ -139,29 +141,40 @@ class _HomeScreenState extends State<HomeScreen> {
                                               children: [
                                                 Radio<num>(
                                                   value: state
-                                                      .mainOptionsGroupList.options[index].optionId,
+                                                      .mainOptionsGroupList
+                                                      .options[theOptionIndex]
+                                                      .optionId,
                                                   // groupValue: state
                                                   //     .mainOptionsGroupList.options[index]
                                                   //     .optionId,
-                                                  groupValue: state.mainOptionsGroupValue,
-                                                  onChanged: 
-                                                  (optionIndexInMainOptionList)
-                                                  
-                                                  {
-                                                  //   context.read<HomeBloc>().add(
-                                                  //   MainOptionSelected(
-                                                  //     mainOptionId: state
-                                                  //         .mainOptionsGroupList.options[index!.toInt()].optionId.toInt(),
-                                                  //   )
-                                                  // );
-                                                  print("main option${optionIndexInMainOptionList}");
-                                                  }
-                                                  ,
+                                                  groupValue: state
+                                                      .mainOptionsGroupValue,
+                                                  onChanged:
+                                                      (optionIndexInMainOptionList) {
+                                                    setState(() {
+                                                      context
+                                                          .read<HomeBloc>()
+                                                          .add(
+                                                              MainOptionSelected(
+                                                            mainOptionId: state
+                                                                .mainOptionsGroupList
+                                                                .options[
+                                                                    theOptionIndex
+                                                                        .toInt()]
+                                                                .optionId
+                                                                .toInt(),
+                                                          ));
+                                                    });
+
+                                                    print(
+                                                        "main option${state.mainOptionsGroupList.options[theOptionIndex].optionId.toInt()}");
+                                                  },
                                                   activeColor:
                                                       AppColors.mainColor,
                                                 ),
                                                 Text(state
-                                                    .mainOptionsGroupList.options[index]
+                                                    .mainOptionsGroupList
+                                                    .options[theOptionIndex]
                                                     .nameEn),
                                               ],
                                             ),

@@ -89,6 +89,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       //     Map<int, int>.from(currentState.selectedOptions);
       // newSelectedOptions[event.groupId] = event.optionId;
 
+mainOptionsGroupValue = event.mainOptionId;
       // // Update the main color if a color is selected
       // if (event.colorHash != null) {
       //   theMainColor = hexToColor(event.colorHash!);
@@ -123,13 +124,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       //   newSelectedOptions.remove(sizeGroup.optionGroupId);
       // }
 
-      // emit(HomeLoaded(
-      //   optionGroups: currentState.optionGroups,
-      //   availableOptions: currentState.availableOptions,
-      //   selectedOptions: newSelectedOptions,
-      //   filteredAvailableOptions: filteredAvailableOptions,
-      //   theMainColor: theMainColor,
-      // ));
+      emit(HomeLoaded(
+        mainOptionsGroupList: mainOptionsGroupList!,
+        mainOptionsGroupValue: mainOptionsGroupValue,
+        allOptionsGroupList: allOptionsGroupList,
+        allThePossibilitiesList: allThePossibilitiesList,
+        filteredPossibilities: allThePossibilitiesList,
+        // selectedOptions: newSelectedOptions,
+        // filteredAvailableOptions: filteredAvailableOptions,
+        // theMainColor: theMainColor,  
+      ));
     }
   }
 
