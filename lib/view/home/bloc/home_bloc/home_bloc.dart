@@ -101,8 +101,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   _onMainOptionSelected(MainOptionSelected event, Emitter<HomeState> emit) {
-    print("==========mainOptionSelected$mainSelectedOptionnnnGroupId ");
-    print("==========mainOptionSelected${event.mainOptionId} ");
+    // print("==========mainOptionSelected$mainSelectedOptionnnnGroupId ");
+    // print("==========mainOptionSelected${event.mainOptionId} ");
     mainSelectedOptionnnnGroupId = event.mainOptionId;
     if (state is HomeLoaded) {
       // final currentState = state as HomeLoaded;
@@ -111,13 +111,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       filteredPossibilities = [];
       for (var possibility in allThePossibilitiesList) {
         for (int i = 0; i < possibility.possibilityGroups.length; i++) {
-          // if (possibility.possibilityGroups[i].optionGroupId ==
-          //         mainSelectedOptionnnnGroupId &&
-          //     possibility.possibilityGroups[i].optionId == event.mainOptionId) {
-          //   print("==========45978694759084=");
+          if (possibility.possibilityGroups[i].optionGroupId ==
+                  mainSelectedOptionnnnGroupId
+              //      &&
+              // possibility.possibilityGroups[i].optionId == event.mainOptionId
+              ) {
+            print("==========45978694759084=");
 
-          //   filteredPossibilities.add(possibility);
-          // }
+            filteredPossibilities.add(possibility);
+          }
         }
       }
 
