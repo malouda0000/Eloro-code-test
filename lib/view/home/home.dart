@@ -3,6 +3,7 @@
 import 'package:eloro_shop_uae/core/constants/app_constants.dart';
 import 'package:eloro_shop_uae/core/func/hash_color_converter.dart';
 import 'package:eloro_shop_uae/view/home/bloc/home_bloc/home_bloc.dart';
+import 'package:eloro_shop_uae/view/home/model/opetion_group_moudel.dart';
 import 'package:eloro_shop_uae/view/shared/screens/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,6 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
             } else if (state is HomeError) {
               return Center(child: Text(state.message));
             } else if (state is HomeLoaded) {
+              List<Option> _filteredMainOptionsGroupList =
+                  state.filteredMainOptionsGroupList;
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: SingleChildScrollView(
@@ -96,6 +99,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                         .mainOptionsGroupList.options.length,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, theOptionIndex) {
+// check if the main option is avalble or not
+                                      bool isEnabled = state
+                                          .filteredPossibilities
+                                          .any((possibility) => possibility
+                                              .possibilityGroups
+                                              .any((pg) =>
+                                                  pg.optionId ==
+                                                  state
+                                                      .mainOptionsGroupList
+                                                      .options[theOptionIndex]
+                                                      .optionId));
+
                                       return Container(
                                         // main option container
 
@@ -150,27 +165,46 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   groupValue: state
                                                       .mainOptionsGroupValue,
                                                   onChanged:
-                                                      (optionIndexInMainOptionList) {
-                                                    setState(() {
-                                                      context
-                                                          .read<HomeBloc>()
-                                                          .add(
-                                                              MainOptionSelected(
-                                                            mainOptionId: state
-                                                                .mainOptionsGroupList
-                                                                .options[
-                                                                    theOptionIndex
-                                                                        .toInt()]
-                                                                .optionId
-                                                                .toInt(),
-                                                            // mainSelectedOptionnnnGroupId:  state.mainOptionsGroupList.options[theOptionIndex.toInt()].optionId.toInt(),
-                                                            // mainSelectedOptionnnnGroupId: state.mainOptionsGroupList.optionGroupId
-                                                          ));
-                                                    });
 
-                                                    print(
-                                                        "main option${state.mainOptionsGroupList.options[theOptionIndex].optionId.toInt()}");
-                                                  },
+// bool isEnabled = state.filteredPossibilities.any((possibility) =>
+//     possibility.possibilityGroups.any((pg) =>
+//         pg.optionId ==
+//         state.mainOptionsGroupList.options[theOptionIndex].optionId));
+
+                                                      isEnabled
+                                                          ? (value) {
+                                                              context
+                                                                  .read<
+                                                                      HomeBloc>()
+                                                                  .add(
+                                                                    MainOptionSelected(
+                                                                        mainOptionId:
+                                                                            value!.toInt()),
+                                                                  );
+                                                            }
+                                                          : null, // Disabled if not in the list
+
+                                                  //     (optionIndexInMainOptionList) {
+                                                  //   setState(() {
+                                                  //     context
+                                                  //         .read<HomeBloc>()
+                                                  //         .add(
+                                                  //             MainOptionSelected(
+                                                  //           mainOptionId: state
+                                                  //               .mainOptionsGroupList
+                                                  //               .options[
+                                                  //                   theOptionIndex
+                                                  //                       .toInt()]
+                                                  //               .optionId
+                                                  //               .toInt(),
+                                                  //           // mainSelectedOptionnnnGroupId:  state.mainOptionsGroupList.options[theOptionIndex.toInt()].optionId.toInt(),
+                                                  //           // mainSelectedOptionnnnGroupId: state.mainOptionsGroupList.optionGroupId
+                                                  //         ));
+                                                  //   });
+
+                                                  //   print(
+                                                  //       "main option${state.mainOptionsGroupList.options[theOptionIndex].optionId.toInt()}");
+                                                  // },
                                                   activeColor:
                                                       AppColors.mainColor,
                                                 ),

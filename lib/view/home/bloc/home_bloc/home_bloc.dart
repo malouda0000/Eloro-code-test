@@ -18,6 +18,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   List<OptionGroupsLi> allOptionsGroupList = [];
   int? mainSelectedOptionnnnGroupId;
   OptionGroupsLi? mainOptionsGroupList;
+  List<Option> filteredMainOptionsGroupList= [];
   OptionGroupsLi? colorsOptionsGroupList;
   OptionGroupsLi? sizeOptionsGroupList;
   num mainOptionsGroupValue = 0;
@@ -66,6 +67,29 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           }
         }
 
+// filter the main avalible options
+        if (mainOptionsGroupList != null) {
+          if (mainOptionsGroupList!.options != null &&
+              mainOptionsGroupList!.options.isNotEmpty) {
+            for (var item in mainOptionsGroupList!.options) {
+              // if(item.optionId   )
+
+              for (var possibility in allThePossibilitiesList) {
+                for (int i = 0; i < possibility.possibilityGroups.length; i++) {
+                  if (possibility.possibilityGroups[i].optionId == item.optionId
+                      //      &&
+                      // possibility.possibilityGroups[i].optionId == event.mainOptionId
+                      ) {
+                    // print("==45978========694759084=${filteredPossibilities.length}");
+                    filteredMainOptionsGroupList.add(item);
+                  }
+                }
+              }
+            }
+          }
+        } else {
+          null;
+        }
         // print("Fetched Available Options: ${allThePossibilitiesList}");
 
         // Extract all possibilities
@@ -86,6 +110,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(HomeLoaded(
           allOptionsGroupList: allOptionsGroupList,
           mainOptionsGroupList: mainOptionsGroupList!,
+          filteredMainOptionsGroupList: filteredMainOptionsGroupList,
           mainOptionsGroupValue: mainOptionsGroupValue,
           colorsOptionsGroupList: colorsOptionsGroupList,
           colorsOptionsGroupValue: colorsOptionsGroupValue,
@@ -105,8 +130,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   _onMainOptionSelected(MainOptionSelected event, Emitter<HomeState> emit) {
     // print("==========mainOptionSelected$mainSelectedOptionnnnGroupId ");
     // print("==========mainOptionSelected${event.mainOptionId} ");
-    
-    // #### this line of code was making problem #### //  
+
+    // #### this line of code was making problem #### //
     // mainSelectedOptionnnnGroupId = event.mainOptionId;
     if (state is HomeLoaded) {
       // final currentState = state as HomeLoaded;
@@ -120,7 +145,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               //      &&
               // possibility.possibilityGroups[i].optionId == event.mainOptionId
               ) {
-            // print("==45978========694759084=");
+            print("==45978========694759084=${filteredPossibilities.length}");
             filteredPossibilities.add(possibility);
           }
         }
@@ -130,6 +155,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       emit(HomeLoaded(
         mainOptionsGroupList: mainOptionsGroupList!,
+        filteredMainOptionsGroupList: filteredMainOptionsGroupList,
         mainOptionsGroupValue: mainOptionsGroupValue,
         colorsOptionsGroupList: colorsOptionsGroupList,
         colorsOptionsGroupValue: colorsOptionsGroupValue,
@@ -141,14 +167,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-
-    // #### this function is with the help of chat gpt #### //  
+  // #### this function is with the help of chat gpt #### //
   // _onMainOptionSelected(MainOptionSelected event, Emitter<HomeState> emit) {
   //   print(
   //       "========== mainSelectedOptionnnnGroupId BEFORE: $mainSelectedOptionnnnGroupId ");
   //   print("========== event.mainOptionId: ${event.mainOptionId} ");
 
-  //   // #### this line of code was making problem #### //  
+  //   // #### this line of code was making problem #### //
   //   // mainSelectedOptionnnnGroupId = event.mainOptionId;
   //   mainOptionsGroupValue = event.mainOptionId;
 
@@ -193,6 +218,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       emit(HomeLoaded(
         mainOptionsGroupList: mainOptionsGroupList!,
+        filteredMainOptionsGroupList: filteredMainOptionsGroupList,
         mainOptionsGroupValue: mainOptionsGroupValue,
         colorsOptionsGroupList: colorsOptionsGroupList,
         colorsOptionsGroupValue: colorsOptionsGroupValue,
