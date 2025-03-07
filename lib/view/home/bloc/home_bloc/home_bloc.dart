@@ -43,12 +43,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         //     AvailableOptionLis.fromJson(data['data']['availableOptionLis']);
         allThePossibilitiesList =
             optionGroupsModel.data.availableOptionLis.possibilities;
+        // print("✅ grrrrrrrorurourp id :  = ${mainSelectedOptionnnnGroupId}");
 
         // update the mainoptionsGroupList
         for (var item in optionGroupsModel.data.optionGroupsLis) {
           if (item.isMain == true) {
             mainOptionsGroupList = item;
             mainSelectedOptionnnnGroupId = item.optionGroupId.toInt();
+            // print("✅ grrrrrrrorurourp id :  = ${mainSelectedOptionnnnGroupId}");
           }
         }
 
@@ -103,7 +105,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   _onMainOptionSelected(MainOptionSelected event, Emitter<HomeState> emit) {
     // print("==========mainOptionSelected$mainSelectedOptionnnnGroupId ");
     // print("==========mainOptionSelected${event.mainOptionId} ");
-    mainSelectedOptionnnnGroupId = event.mainOptionId;
+    
+    // #### this line of code was making problem #### //  
+    // mainSelectedOptionnnnGroupId = event.mainOptionId;
     if (state is HomeLoaded) {
       // final currentState = state as HomeLoaded;
       mainOptionsGroupValue = event.mainOptionId;
@@ -116,8 +120,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               //      &&
               // possibility.possibilityGroups[i].optionId == event.mainOptionId
               ) {
-            print("==45978========694759084=");
-
+            // print("==45978========694759084=");
             filteredPossibilities.add(possibility);
           }
         }
@@ -137,6 +140,51 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ));
     }
   }
+
+
+    // #### this function is with the help of chat gpt #### //  
+  // _onMainOptionSelected(MainOptionSelected event, Emitter<HomeState> emit) {
+  //   print(
+  //       "========== mainSelectedOptionnnnGroupId BEFORE: $mainSelectedOptionnnnGroupId ");
+  //   print("========== event.mainOptionId: ${event.mainOptionId} ");
+
+  //   // #### this line of code was making problem #### //  
+  //   // mainSelectedOptionnnnGroupId = event.mainOptionId;
+  //   mainOptionsGroupValue = event.mainOptionId;
+
+  //   filteredPossibilities = [];
+
+  //   for (var possibility in allThePossibilitiesList) {
+  //     if (possibility.possibilityGroups.isEmpty) {
+  //       print("⚠️ Empty possibilityGroups for possibility: $possibility");
+  //       continue;
+  //     }
+
+  //     for (int i = 0; i < possibility.possibilityGroups.length; i++) {
+  //       var groupId = possibility.possibilityGroups[i].optionGroupId;
+  //       if (groupId == mainSelectedOptionnnnGroupId) {
+  //         print("✅ Match Found: groupId = $groupId");
+  //         filteredPossibilities.add(possibility);
+  //       } else {
+  //         print(
+  //             "❌ No Match: Expected $mainSelectedOptionnnnGroupId, but got $groupId");
+  //       }
+  //     }
+  //   }
+
+  //   print("✅ Filtered Possibilities Count: ${filteredPossibilities.length}");
+
+  //   emit(HomeLoaded(
+  //     mainOptionsGroupList: mainOptionsGroupList!,
+  //     mainOptionsGroupValue: mainOptionsGroupValue,
+  //     colorsOptionsGroupList: colorsOptionsGroupList,
+  //     colorsOptionsGroupValue: colorsOptionsGroupValue,
+  //     sizeOptionsGroupList: sizeOptionsGroupList,
+  //     allOptionsGroupList: allOptionsGroupList,
+  //     allThePossibilitiesList: allThePossibilitiesList,
+  //     filteredPossibilities: filteredPossibilities, // ✅ Correctly filtered list
+  //   ));
+  // }
 
   _onColorOptionSelected(ColorOptionSelected event, Emitter<HomeState> emit) {
     if (state is HomeLoaded) {

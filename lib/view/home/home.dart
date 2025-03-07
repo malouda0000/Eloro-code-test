@@ -163,8 +163,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         .toInt()]
                                                                 .optionId
                                                                 .toInt(),
-                                                                // mainSelectedOptionnnnGroupId:  state.mainOptionsGroupList.options[theOptionIndex.toInt()].optionId.toInt(),
-                                                                // mainSelectedOptionnnnGroupId: state.mainOptionsGroupList.optionGroupId
+                                                            // mainSelectedOptionnnnGroupId:  state.mainOptionsGroupList.options[theOptionIndex.toInt()].optionId.toInt(),
+                                                            // mainSelectedOptionnnnGroupId: state.mainOptionsGroupList.optionGroupId
                                                           ));
                                                     });
 
@@ -284,18 +284,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 (optionIndexInColorsOptionList) {
                                                               setState(() {
                                                                 context
-                                                                    .read<HomeBloc>()
+                                                                    .read<
+                                                                        HomeBloc>()
                                                                     .add(
-                                                                        ColorOptionSelected(
-                                                                      colorOptionId: state
-                                                                          .colorsOptionsGroupList!
-                                                                          .options[
-                                                                              theColorOptionIndex
-                                                                                  .toInt()]
-                                                                          .optionId
-                                                                          .toInt(),
-                                                                    ), 
-                                                                    
+                                                                      ColorOptionSelected(
+                                                                        colorOptionId: state
+                                                                            .colorsOptionsGroupList!
+                                                                            .options[theColorOptionIndex.toInt()]
+                                                                            .optionId
+                                                                            .toInt(),
+                                                                      ),
                                                                     );
                                                               });
 
