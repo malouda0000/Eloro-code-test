@@ -271,6 +271,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                               scrollDirection: Axis.horizontal,
                                               itemBuilder: (context,
                                                   theColorOptionIndex) {
+
+// check if the color is avalbel or not
+                                                    bool isColorEnabled = state.filteredPossibilities.any((possibility) =>
+    possibility.possibilityGroups.any((pg) =>
+        pg.optionId == state.colorsOptionsGroupList!.options[theColorOptionIndex].optionId && pg.optionGroupId == state.mainOptionsGroupValue
+        
+        ));
+
+
+
                                                 return Container(
                                                   // color options container
                                                   clipBehavior: Clip.hardEdge,
@@ -314,27 +324,37 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             //     .optionId,
                                                             groupValue: state
                                                                 .colorsOptionsGroupValue,
-                                                            onChanged:
-                                                                (optionIndexInColorsOptionList) {
-                                                              setState(() {
-                                                                context
-                                                                    .read<
-                                                                        HomeBloc>()
-                                                                    .add(
-                                                                      ColorOptionSelected(
-                                                                        colorOptionId: state
-                                                                            .colorsOptionsGroupList!
-                                                                            .options[theColorOptionIndex.toInt()]
-                                                                            .optionId
-                                                                            .toInt(),
-                                                                      ),
-                                                                    );
-                                                              });
+                                                            // onChanged:
+                                                            //     (optionIndexInColorsOptionList) {
+                                                            //   setState(() {
+                                                            //     context
+                                                            //         .read<
+                                                            //             HomeBloc>()
+                                                            //         .add(
+                                                            //           ColorOptionSelected(
+                                                            //             colorOptionId: state
+                                                            //                 .colorsOptionsGroupList!
+                                                            //                 .options[theColorOptionIndex.toInt()]
+                                                            //                 .optionId
+                                                            //                 .toInt(),
+                                                            //           ),
+                                                            //         );
+                                                            //   });
 
-                                                              print(
-                                                                  "main option${state.mainOptionsGroupList.options[theColorOptionIndex].optionId.toInt()}");
-                                                            },
-                                                            // onChanged: null,
+                                                            //   print(
+                                                            //       "main option${state.mainOptionsGroupList.options[theColorOptionIndex].optionId.toInt()}");
+                                                            // },
+                                                            
+ onChanged: isColorEnabled
+      ? (value) {
+          context.read<HomeBloc>().add(
+                ColorOptionSelected(colorOptionId: value!.toInt()),
+              );
+        }
+      : null, // Disabled if the color option is not in filteredPossibilities
+
+
+
                                                             activeColor:
                                                                 AppColors
                                                                     .mainColor,

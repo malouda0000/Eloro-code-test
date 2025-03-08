@@ -18,7 +18,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   List<OptionGroupsLi> allOptionsGroupList = [];
   int? mainSelectedOptionnnnGroupId;
   OptionGroupsLi? mainOptionsGroupList;
-  List<Option> filteredMainOptionsGroupList= [];
+  List<Option> filteredMainOptionsGroupList = [];
   OptionGroupsLi? colorsOptionsGroupList;
   OptionGroupsLi? sizeOptionsGroupList;
   num mainOptionsGroupValue = 0;
@@ -211,11 +211,60 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   //   ));
   // }
 
-  _onColorOptionSelected(ColorOptionSelected event, Emitter<HomeState> emit) {
+  // _onColorOptionSelected(ColorOptionSelected event, Emitter<HomeState> emit) {
+  //   if (state is HomeLoaded) {
+  //     // final currentState = state as HomeLoaded;
+  //     colorsOptionsGroupValue = event.colorOptionId;
+
+  //     emit(HomeLoaded(
+  //       mainOptionsGroupList: mainOptionsGroupList!,
+  //       filteredMainOptionsGroupList: filteredMainOptionsGroupList,
+  //       mainOptionsGroupValue: mainOptionsGroupValue,
+  //       colorsOptionsGroupList: colorsOptionsGroupList,
+  //       colorsOptionsGroupValue: colorsOptionsGroupValue,
+  //       sizeOptionsGroupList: sizeOptionsGroupList,
+  //       allOptionsGroupList: allOptionsGroupList,
+  //       allThePossibilitiesList: allThePossibilitiesList,
+  //       filteredPossibilities: allThePossibilitiesList,
+  //     ));
+  //   }
+  // }
+
+  void _onColorOptionSelected(
+      ColorOptionSelected event, Emitter<HomeState> emit) {
     if (state is HomeLoaded) {
-      final currentState = state as HomeLoaded;
+      // Update the selected color ID
       colorsOptionsGroupValue = event.colorOptionId;
 
+
+// ####  #### //
+  filteredPossibilities = [];
+      for (var possibility in allThePossibilitiesList) {
+        for (int i = 0; i < possibility.possibilityGroups.length; i++) {
+          if (possibility.possibilityGroups[i].optionGroupId ==
+                  mainSelectedOptionnnnGroupId
+              //      &&
+              // possibility.possibilityGroups[i].optionId == event.mainOptionId
+              ) {
+            print("==45978========694759084=${filteredPossibilities.length}");
+            filteredPossibilities.add(possibility);
+          }
+        }
+      }
+
+// ####  #### //
+
+
+
+      // Filter the possibilities list to include only those with the selected color
+      // List<Possibility> newFilteredPossibilities = filteredPossibilities
+filteredPossibilities = filteredPossibilities
+
+          .where((possibility) => possibility.possibilityGroups
+              .any((pg) => pg.optionId == event.colorOptionId))
+          .toList();
+
+      print("====453454353463464365=46=4634${filteredPossibilities}");
       emit(HomeLoaded(
         mainOptionsGroupList: mainOptionsGroupList!,
         filteredMainOptionsGroupList: filteredMainOptionsGroupList,
@@ -225,7 +274,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         sizeOptionsGroupList: sizeOptionsGroupList,
         allOptionsGroupList: allOptionsGroupList,
         allThePossibilitiesList: allThePossibilitiesList,
-        filteredPossibilities: allThePossibilitiesList,
+        filteredPossibilities:
+            filteredPossibilities, // ✅ Update with the new filtered list
       ));
     }
   }
